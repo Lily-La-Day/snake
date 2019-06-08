@@ -156,6 +156,8 @@ console.log(snakePos[2])
 
 
 
+
+
 const moveBody = () => {
   bodyCalc(direction)
   console.log(newPos)
@@ -174,7 +176,8 @@ const moveBody = () => {
   )}
 }
 
-console.log(moveBody())
+setInterval(moveBody, 500)
+
 
 
 // snake.forEach(square => square.classList.remove('snake'))
