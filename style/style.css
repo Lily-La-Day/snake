@@ -29,8 +29,14 @@ div.grid-item {
   border: 1px solid black;
 }
 
-div.grid-item.player {
+div.grid-item.snake {
   background-color: black;
   background-repeat: no-repeat;
   background-size: contain;
 }
+
+/* div.grid-item.snake-head {
+  background-color: black;
+  background-repeat: no-repeat;
+  background-size: contain;
+} */
