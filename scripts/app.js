@@ -75,7 +75,7 @@ function handleKeyDown(e) {
 const topCheck = () => {
 
   if (snakePos[0] < 100) {
-
+return snakePos[0] += 9900
   }
 
 }
@@ -217,7 +217,7 @@ const moveBody = () => {
   eatFood(randomNum)
 }
 
-setInterval(moveBody, 500)
+setInterval(moveBody, 50)
 
 
 
@@ -253,13 +253,13 @@ const init = () => {
 
     //
   }
-
+makeFood()
   squares[headPos].classList.add('snake-head')
 
 
 }
 
-setTimeout(makeFood, 10000)
+// setTimeout(makeFood, 10000)
 
 
 
