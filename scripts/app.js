@@ -1,7 +1,7 @@
-const width = 100
+const width = 50
 const squares = []
 let newPos = []
-let snakePos = [1000, 1100, 1200]
+let snakePos = [1200, 1250, 1300]
 let direction = ''
 let randomNum = 0
 let randomNumTwo = 0
@@ -39,31 +39,32 @@ function handleKeyDown(e) {
 }
 
 const topCheck = () => {
-  if (snakePos[0] < 100) {
-    return snakePos[0] += 9900
+  if (snakePos[0] < 50) {
+    return snakePos[0] += 2450
   }
 }
 
 const bottomCheck = () => {
-  if (snakePos[0] > 9900) {
-    return snakePos[0] -= 9900
+  if (snakePos[0] > 2450) {
+    return snakePos[0] -= 2450
   }
-}
+  }
+
 
 const bodyCalc = (direction) => {
   let vari
   switch(direction) {
     case 'down':
       bottomCheck()
-      vari = snakePos[0] += 100
-      snakePos[0] -= 100
+      vari = snakePos[0] += width
+      snakePos[0] -= width
       snakePos.unshift(vari)
       snakePos.pop()
       return snakePos
     case 'up':
       topCheck()
-      vari = snakePos[0] -= 100
-      snakePos[0] += 100
+      vari = snakePos[0] -= width
+      snakePos[0] += width
       snakePos.unshift(vari)
       snakePos.pop()
       return snakePos
@@ -86,9 +87,9 @@ const bodyCalc = (direction) => {
 }
 
 const makeRandomNums = () => {
-  randomNum = Math.floor(Math.random() * 10000)
-  randomNumTwo = Math.floor(Math.random() * 10000)
-  // let randomNumTwo =  Math.floor(Math.random() * 10000)
+  randomNum = Math.floor(Math.random() * width * width)
+  randomNumTwo = Math.floor(Math.random() * width * width)
+  // let randomNumTwo =  Math.floor(Math.random() * width00)
 }
 
 const makeFood = () => {
@@ -102,7 +103,7 @@ const makeFood = () => {
     }
   }
 
-  setTimeout(addFood, 3000)
+  setTimeout(addFood, 1000)
 
 
 }
@@ -114,31 +115,33 @@ const eatFood = (randomNum) => {
 
     squares[randomNum].classList.remove('food')
     const nextPosOne = snakePos[-1]
-const nextPosThree = snakePos[-2]
-const nextPosFive = snakePos[-3]
-const nextPosSix = snakePos[-4]
-const nextPosTwo = snakePos[-5]
-const nextPosSeven = snakePos[-6]
-const nextPosNine = snakePos[-7]
-const nextPosTen = snakePos[-8]
-const nextPosEight =  snakePos[-9]
+// const nextPosThree = snakePos[-2]
+// const nextPosFive = snakePos[-3]
+// const nextPosSix = snakePos[-4]
+// const nextPosTwo = snakePos[-5]
+// const nextPosSeven = snakePos[-6]
+// const nextPosNine = snakePos[-7]
+// const nextPosTen = snakePos[-8]
+// const nextPosEight =  snakePos[-9]
 
-    setTimeout(growSnake(nextPosOne, nextPosOne, nextPosTwo, nextPosThree, nextPosFive, nextPosSix, nextPosSeven, nextPosEight, nextPosNine, nextPosTen), 1000)
-    scoreTracker += 10000
+    setTimeout(growSnake(nextPosOne), 1000)
+      // nextPosOne, nextPosTwo, nextPosThree, nextPosFive, nextPosSix, nextPosSeven, nextPosEight, nextPosNine, nextPosTen), 1000)
+    scoreTracker += width * width
     scoreFunc()
     makeFood()
   }
 }
 
-const growSnake = (nextPosOne, nextPosTwo, nextPosThree, nextPosFive, nextPosSix, nextPosSeven, nextPosEight, nextPosNine, nextPosTen) => {
+const growSnake = (nextPosOne) => {
+  // nextPosTwo, nextPosThree, nextPosFive, nextPosSix, nextPosSeven, nextPosEight, nextPosNine, nextPosTen)
   snakePos.push(nextPosOne)
-    snakePos.push(nextPosTwo)
-      snakePos.push(nextPosThree)
-        snakePos.push(nextPosFive)
-          snakePos.push(nextPosSix)
-          snakePos.push(nextPosSeven)
-          snakePos.push(nextPosNine)
-          snakePos.push(nextPosTen)
+    // snakePos.push(nextPosTwo)
+    //   snakePos.push(nextPosThree)
+    //     snakePos.push(nextPosFive)
+    //       snakePos.push(nextPosSix)
+    //       snakePos.push(nextPosSeven)
+    //       snakePos.push(nextPosNine)
+    //       snakePos.push(nextPosTen)
 
   console.log(snakePos)
   }
@@ -147,9 +150,8 @@ const loseFunc = (storedNum) => {
   const nowPos = [...document.querySelectorAll('.snake')]
   const nowPosNums = nowPos.map(pos=>parseInt(pos.dataset.index))
   const withoutHead = nowPosNums.slice(1)
-
-  console.log(squares.length)
   if (withoutHead.length < storedNum && squares.some(square => square.classList.contains('food'))){
+    console.log(withoutHead.length, storedNum)
     nowPos.forEach(pos => pos.classList.add('dead-snake'))
     squares.forEach(square => square.classList.remove('snake'))
     shouldMove = false
@@ -181,7 +183,7 @@ const moveBody = () => {
   }
 }
 
-setInterval(moveBody, 0.001)
+setInterval(moveBody, 50)
 
 document.addEventListener('keydown', handleKeyDown)
 
