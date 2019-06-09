@@ -8,6 +8,7 @@ let direction = ''
 let bodyPart = 500
 let randomNum = 0
 let randomNumTwo = 0
+let shouldMove = true
 // (parseInt(square.dataset.id) === newPos)
 
 
@@ -157,14 +158,14 @@ const makeFood = () => {
 
   const newPos = [...document.querySelectorAll('.snake')]
   const addFood = () => {
-  if (newPos.every(pos => pos !== randomNum)) {
-    squares[randomNum].classList.add('food')
-  } else {
-    squares[randomNumTwo].classList.add('food')
+    if (newPos.every(pos => pos !== randomNum)) {
+      squares[randomNum].classList.add('food')
+    } else {
+      squares[randomNumTwo].classList.add('food')
+    }
   }
-}
 
-setTimeout(addFood, 1000)
+  setTimeout(addFood, 1000)
 
 
 }
@@ -184,87 +185,74 @@ const eatFood = (randomNum) => {
 
     squares[randomNum].classList.remove('food')
     const nextPos = snakePos[-1]
+    const nextPosTwo = snakePos[-2]
 
-    setTimeout(growSnake(nextPos), 1000)
+    setTimeout(growSnake(nextPos, nextPosTwo), 1000)
     makeFood()
   }
 }
 
 
-const growSnake = (nextPos) => {
+const growSnake = (nextPos, nextPosTwo) => {
   snakePos.push(nextPos)
+  snakePos.push(nextPosTwo)
 }
 
 const loseFunc = (storedNum) => {
-const nowPos = [...document.querySelectorAll('.snake')]
-const nowPosNums = nowPos.map(pos=>parseInt(pos.dataset.index))
-const withoutHead = nowPosNums.slice(1)
-// console.log(withoutHead.length, storedNum)
-console.log(squares.length)
-if (withoutHead.length < storedNum && squares.some(square => square.classList.contains('food'))){
-  nowPos.forEach(pos => pos.classList.add('dead-snake'))
- squares.forEach(square => square.classList.remove('snake'))
+  const nowPos = [...document.querySelectorAll('.snake')]
+  const nowPosNums = nowPos.map(pos=>parseInt(pos.dataset.index))
+  const withoutHead = nowPosNums.slice(1)
+  // console.log(withoutHead.length, storedNum)
+  console.log(squares.length)
+  if (withoutHead.length < storedNum && squares.some(square => square.classList.contains('food'))){
+    nowPos.forEach(pos => pos.classList.add('dead-snake'))
+    squares.forEach(square => square.classList.remove('snake'))
+    shouldMove = false
 
 
 
 
+  }
 }
-}
-
-// const loseFunc = (storedNum) => {
-// const nowPos = [...document.querySelectorAll('.snake')]
-// const nowPosNums = nowPos.map(pos=>parseInt(pos.dataset.index))
-// const withoutHead = nowPosNums.slice(1)
-// console.log(withoutHead.length, storedNum)
-// if (withoutHead.length < storedNum){
-//   nowPos.forEach(pos => pos.classList.add('dead-snake'))
-//  squares.forEach(square => square.classList.remove('snake'))
-//
-//
-//
-//
-// }
-// }
-
 
 
 
 
 
 const moveBody = () => {
+  if (shouldMove){
+    bodyCalc(direction)
 
-  bodyCalc(direction)
-
-  // document.querySelectorAll('[class*="snake"]')
-  squares.forEach(square => square.classList.remove('snake'))
+    // document.querySelectorAll('[class*="snake"]')
+    squares.forEach(square => square.classList.remove('snake'))
     squares.forEach(square => square.classList.remove('snake-bod'))
 
-  for(let i = 0; i < newPos.length; i++) {
-    squares.forEach(square => {
-      if(parseInt(square.dataset.index) === newPos[i]) {
-        square.classList.add('snake')
+    for(let i = 0; i < newPos.length; i++) {
+      squares.forEach(square => {
+        if(parseInt(square.dataset.index) === newPos[i]) {
+          square.classList.add('snake')
 
 
-        snakePos = newPos
+          snakePos = newPos
+
+        }
 
       }
+    )
+  }
+  const storeNum = () => {
+    const storedNum = snakePos.length -1
 
-    }
-  )
+    loseFunc(storedNum)
+  }
+  storeNum()
+
+
+  eatFood(randomNum)
 }
-const storeNum = () => {
-const storedNum = snakePos.length -1
-
-loseFunc(storedNum)
-}
-storeNum()
-
-
-eatFood(randomNum)
-
 }
 
-setInterval(moveBody, 50)
+setInterval(moveBody, 1)
 
 
 
@@ -300,7 +288,7 @@ const init = () => {
 
     //
   }
-  makeFood()
+  setTimeout(makeFood, 2000)
   squares[headPos].classList.add('snake-head')
 
 
