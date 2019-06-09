@@ -10,6 +10,10 @@ html, body {
   font-family: 'Roboto Mono', monospace;
 }
 
+h2 {
+  margin-left: 50px;
+}
+
 body {
   display: flex;
   align-items: center;
