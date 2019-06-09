@@ -75,7 +75,7 @@ function handleKeyDown(e) {
 const topCheck = () => {
 
   if (snakePos[0] < 100) {
-return snakePos[0] += 9900
+    return snakePos[0] += 9900
   }
 
 }
@@ -143,8 +143,8 @@ const bodyCalc = (direction) => {
 }
 
 const makeRandomNums = () => {
-   randomNum = Math.floor(Math.random() * 10000)
-   randomNumTwo = Math.floor(Math.random() * 10000)
+  randomNum = Math.floor(Math.random() * 10000)
+  randomNumTwo = Math.floor(Math.random() * 10000)
   // let randomNumTwo =  Math.floor(Math.random() * 10000)
 }
 
@@ -152,14 +152,14 @@ const makeRandomNums = () => {
 
 
 const makeFood = () => {
-makeRandomNums()
+  makeRandomNums()
   console.log(randomNum)
 
   const newPos = [...document.querySelectorAll('.snake')]
   if (newPos.every(pos => pos !== randomNum)) {
     squares[randomNum].classList.add('food')
   } else {
-  squares[randomNumTwo].classList.add('food')
+    squares[randomNumTwo].classList.add('food')
   }
 
 
@@ -171,26 +171,49 @@ makeRandomNums()
 
 
 const eatFood = (randomNum) => {
-console.log('eating')
-console.log(randomNum)
+  console.log('eating')
+  console.log(randomNum)
 
-const newPos = [...document.querySelectorAll('.snake')]
-console.log(newPos)
-  if ((parseInt(newPos[0].dataset.index) === randomNum)){
+  const newPos = [...document.querySelectorAll('.snake')]
+
+  const newPosNums = newPos.map(pos=>parseInt(pos.dataset.index))
+  if ((newPosNums.some(num => num === randomNum))){
 
     squares[randomNum].classList.remove('food')
     const nextPos = snakePos[-1]
 
-setTimeout(growSnake(nextPos), 1000)
-  makeFood()
-}
+    setTimeout(growSnake(nextPos), 1000)
+    makeFood()
+  }
 }
 
 
 const growSnake = (nextPos) => {
-    snakePos.push(nextPos)
+  snakePos.push(nextPos)
 }
 
+
+
+const loseFunc = (storedNum) => {
+
+
+
+const nowPos = [...document.querySelectorAll('.snake')]
+const bodPos = [...document.querySelectorAll('.snake-bod')]
+const nowPosNums = nowPos.map(pos=>parseInt(pos.dataset.index))
+const bodPosNums = bodPos.map(pos=>parseInt(pos.dataset.index))
+const withoutHead = nowPosNums.slice(1)
+const head = [...document.querySelectorAll('.snake')]
+const headNum = head.map(pos=>parseInt(pos.dataset.index))
+const justHead = headNum.shift()
+console.log(withoutHead.length, storedNum)
+if (withoutHead.length < storedNum){
+ console.log('you lose')
+
+
+
+}
+}
 
 
 
@@ -198,23 +221,36 @@ const growSnake = (nextPos) => {
 
 
 const moveBody = () => {
+
   bodyCalc(direction)
 
   // document.querySelectorAll('[class*="snake"]')
   squares.forEach(square => square.classList.remove('snake'))
+    squares.forEach(square => square.classList.remove('snake-bod'))
+
   for(let i = 0; i < newPos.length; i++) {
     squares.forEach(square => {
       if(parseInt(square.dataset.index) === newPos[i]) {
         square.classList.add('snake')
+
 
         snakePos = newPos
 
       }
 
     }
-    )
+  )
 }
-  eatFood(randomNum)
+const storeNum = () => {
+const storedNum = snakePos.length -1
+
+loseFunc(storedNum)
+}
+storeNum()
+
+
+eatFood(randomNum)
+
 }
 
 setInterval(moveBody, 50)
@@ -253,7 +289,7 @@ const init = () => {
 
     //
   }
-makeFood()
+  makeFood()
   squares[headPos].classList.add('snake-head')
 
 
