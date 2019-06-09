@@ -35,6 +35,13 @@ div.grid-item.snake {
   background-size: contain;
 }
 
+
+div.grid-item.food {
+  background-color: HotPink;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
 /* div.grid-item.snake-head {
   background-color: black;
   background-repeat: no-repeat;
