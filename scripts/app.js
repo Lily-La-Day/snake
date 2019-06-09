@@ -174,9 +174,9 @@ const eatFood = (randomNum) => {
 console.log('eating')
 console.log(randomNum)
 
-let newPos = [...document.querySelectorAll('.snake')]
+const newPos = [...document.querySelectorAll('.snake')]
 console.log(newPos)
-  if (newPos[0] === randomNum) {
+  if ((parseInt(newPos[0].dataset.index) === randomNum)){
 
     squares[randomNum].classList.remove('food')
     const nextPos = snakePos[-1]
