@@ -7,6 +7,7 @@ let randomNum = 0
 let randomNumTwo = 0
 let shouldMove = true
 let scoreTracker = 0
+let speed = 100
 
 const scoreFunc = () => {
   const score = document.querySelector('h2')
@@ -52,7 +53,7 @@ const bottomCheck = () => {
 
 const zeroLineCheck = () => {
   if(snakePos[0] === 0)
-  return snakePos[0] += 50
+  return snakePos[0] += 49
 }
 
 
@@ -110,7 +111,7 @@ const makeFood = () => {
     }
   }
 
-  setTimeout(addFood, 1000)
+  setTimeout(addFood, 3000)
 
 
 }
@@ -130,7 +131,29 @@ const eatFood = (randomNum) => {
 }
 
 const growSnake = (nextPosOne) => {
-  snakePos.push(nextPosOne)
+  if(scoreTracker < 1000){
+    snakePos.push(nextPosOne)
+    snakePos.push(nextPosOne)
+  } else if (scoreTracker < 3000) {
+    snakePos.push(nextPosOne)
+    snakePos.push(nextPosOne)
+    snakePos.push(nextPosOne)
+    snakePos.push(nextPosOne)
+  } else {
+    snakePos.push(nextPosOne)
+    snakePos.push(nextPosOne)
+    snakePos.push(nextPosOne)
+    snakePos.push(nextPosOne)
+    snakePos.push(nextPosOne)
+    snakePos.push(nextPosOne)
+    snakePos.push(nextPosOne)
+    snakePos.push(nextPosOne)
+    snakePos.push(nextPosOne)
+    snakePos.push(nextPosOne)
+    snakePos.push(nextPosOne)
+    snakePos.push(nextPosOne)
+
+  }
 }
 
 const loseFunc = (storedNum) => {
@@ -168,7 +191,26 @@ const moveBody = () => {
   }
 }
 
-setInterval(moveBody, 50)
+const speedFunc = () => {
+
+  switch(scoreTracker) {
+    case scoreTracker < 3000:
+      speed = 70
+      break
+    case scoreTracker < 7000:
+      speed = 50
+      break
+    case scoreTracker < 10000:
+      speed = 10
+
+  }
+  return speed
+}
+
+speedFunc()
+
+
+setInterval(moveBody, speed)
 
 document.addEventListener('keydown', handleKeyDown)
 
