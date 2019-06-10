@@ -45,10 +45,17 @@ const topCheck = () => {
 }
 
 const bottomCheck = () => {
-  if (snakePos[0] > 2450) {
+  if (snakePos[0] > 2450){
     return snakePos[0] -= 2450
   }
-  }
+}
+
+const zeroLineCheck = () => {
+  if(snakePos[0] === 0)
+  return snakePos[0] += 50
+}
+
+
 
 
 const bodyCalc = (direction) => {
@@ -69,6 +76,7 @@ const bodyCalc = (direction) => {
       snakePos.pop()
       return snakePos
     case 'left':
+      zeroLineCheck()
       vari = snakePos[0] -= 1
       snakePos[0] += 1
       snakePos.unshift(vari)
@@ -89,7 +97,6 @@ const bodyCalc = (direction) => {
 const makeRandomNums = () => {
   randomNum = Math.floor(Math.random() * width * width)
   randomNumTwo = Math.floor(Math.random() * width * width)
-  // let randomNumTwo =  Math.floor(Math.random() * width00)
 }
 
 const makeFood = () => {
@@ -115,17 +122,7 @@ const eatFood = (randomNum) => {
 
     squares[randomNum].classList.remove('food')
     const nextPosOne = snakePos[-1]
-// const nextPosThree = snakePos[-2]
-// const nextPosFive = snakePos[-3]
-// const nextPosSix = snakePos[-4]
-// const nextPosTwo = snakePos[-5]
-// const nextPosSeven = snakePos[-6]
-// const nextPosNine = snakePos[-7]
-// const nextPosTen = snakePos[-8]
-// const nextPosEight =  snakePos[-9]
-
     setTimeout(growSnake(nextPosOne), 1000)
-      // nextPosOne, nextPosTwo, nextPosThree, nextPosFive, nextPosSix, nextPosSeven, nextPosEight, nextPosNine, nextPosTen), 1000)
     scoreTracker += width * width
     scoreFunc()
     makeFood()
@@ -133,18 +130,8 @@ const eatFood = (randomNum) => {
 }
 
 const growSnake = (nextPosOne) => {
-  // nextPosTwo, nextPosThree, nextPosFive, nextPosSix, nextPosSeven, nextPosEight, nextPosNine, nextPosTen)
   snakePos.push(nextPosOne)
-    // snakePos.push(nextPosTwo)
-    //   snakePos.push(nextPosThree)
-    //     snakePos.push(nextPosFive)
-    //       snakePos.push(nextPosSix)
-    //       snakePos.push(nextPosSeven)
-    //       snakePos.push(nextPosNine)
-    //       snakePos.push(nextPosTen)
-
-  console.log(snakePos)
-  }
+}
 
 const loseFunc = (storedNum) => {
   const nowPos = [...document.querySelectorAll('.snake')]
@@ -159,6 +146,7 @@ const loseFunc = (storedNum) => {
 }
 
 const moveBody = () => {
+  console.log(snakePos)
   if (shouldMove){
     bodyCalc(direction)
     squares.forEach(square => square.classList.remove('snake'))
@@ -173,12 +161,9 @@ const moveBody = () => {
     }
     const storeNum = () => {
       const storedNum = snakePos.length -1
-
       loseFunc(storedNum)
     }
     storeNum()
-
-
     eatFood(randomNum)
   }
 }
