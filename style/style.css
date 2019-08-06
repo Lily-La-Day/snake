@@ -11,7 +11,7 @@ html, body {
 }
 
 h2 {
-  margin-left: 50px;
+  margin-left: 50px
 }
 
 body {
@@ -51,6 +51,10 @@ div.grid-item.dead-snake {
   background-color: red;
   background-repeat: no-repeat;
   background-size: contain;
+}
+
+.score {
+  margin-left: 15%;
 }
 
 /* div.grid-item.snake-head {

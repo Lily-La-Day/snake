@@ -7,7 +7,13 @@ let randomNum = 0
 let randomNumTwo = 0
 let shouldMove = true
 let scoreTracker = 0
-let speed = 100
+let speed = 50
+let time = 3000
+
+
+//Need to adjust time food takes to appear as snake length increases
+
+
 
 const scoreFunc = () => {
   const score = document.querySelector('h2')
@@ -111,8 +117,21 @@ const makeFood = () => {
     }
   }
 
-  setTimeout(addFood, 3000)
+  setTimeout(addFood, time)
 
+
+}
+
+
+const makeFoodTime = () => {
+
+if(scoreTracker < 25000) {
+  time = 3000
+} else if (scoreTracker < 50000) {
+  time = 5000
+} else {
+  time = 7000
+}
 
 }
 const eatFood = (randomNum) => {
@@ -195,10 +214,10 @@ const speedFunc = () => {
 
   switch(scoreTracker) {
     case scoreTracker < 3000:
-      speed = 70
+      speed = 50
       break
     case scoreTracker < 7000:
-      speed = 50
+      speed = 30
       break
     case scoreTracker < 10000:
       speed = 10
@@ -208,6 +227,8 @@ const speedFunc = () => {
 }
 
 speedFunc()
+
+makeFoodTime()
 
 
 setInterval(moveBody, speed)
@@ -225,7 +246,7 @@ const init = () => {
     square.dataset.index = i
     squares.push(square)
   }
-  setTimeout(makeFood, 3000)
+  setTimeout(makeFood, 5000)
 
 }
 
