@@ -59,7 +59,7 @@ const bottomCheck = () => {
 
 const zeroLineCheck = () => {
   if(snakePos[0] === 0)
-  return snakePos[0] += 49
+    return snakePos[0] += 49
 }
 
 
@@ -125,15 +125,16 @@ const makeFood = () => {
 
 const makeFoodTime = () => {
 
-if(scoreTracker < 25000) {
-  time = 3000
-} else if (scoreTracker < 50000) {
-  time = 5000
-} else {
-  time = 7000
-}
+  if(scoreTracker < 25000) {
+    time = 3000
+  } else if (scoreTracker < 50000) {
+    time = 5000
+  } else {
+    time = 7000
+  }
 
 }
+
 const eatFood = (randomNum) => {
   const newPos = [...document.querySelectorAll('.snake')]
 
