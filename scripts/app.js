@@ -21,6 +21,7 @@ const scoreFunc = () => {
 
 }
 
+//handles key presses
 function handleKeyDown(e) {
 
   switch(e.keyCode) {
@@ -45,6 +46,8 @@ function handleKeyDown(e) {
 
 }
 
+//space checking functions
+
 const topCheck = () => {
   if (snakePos[0] < 50) {
     return snakePos[0] += 2450
@@ -64,7 +67,7 @@ const zeroLineCheck = () => {
 
 
 
-
+//changes snakes' direction and moves body accordingly, checking for grid edges beforehand
 const bodyCalc = (direction) => {
   let vari
   switch(direction) {
@@ -101,11 +104,13 @@ const bodyCalc = (direction) => {
 
 }
 
+
 const makeRandomNums = () => {
   randomNum = Math.floor(Math.random() * width * width)
   randomNumTwo = Math.floor(Math.random() * width * width)
 }
 
+//makes food and positions it on grid somewhere that the snake isn't
 const makeFood = () => {
   makeRandomNums()
   const newPos = [...document.querySelectorAll('.snake')]
@@ -130,17 +135,17 @@ const makeFoodTime = () => {
   } else if (scoreTracker < 50000) {
     time = 5000
   } else {
-    time = 7000
+    time = 10000
   }
 
 }
 
+
+//removes food when snake head contacts food
 const eatFood = (randomNum) => {
   const newPos = [...document.querySelectorAll('.snake')]
-
   const newPosNums = newPos.map(pos=>parseInt(pos.dataset.index))
   if ((newPosNums.some(num => num === randomNum))){
-
     squares[randomNum].classList.remove('food')
     const nextPosOne = snakePos[-1]
     setTimeout(growSnake(nextPosOne), 1000)
@@ -150,6 +155,7 @@ const eatFood = (randomNum) => {
   }
 }
 
+//function to make snake longer and by bigger increments depending on user's score (can almost certainly be refactored)
 const growSnake = (nextPosOne) => {
   if(scoreTracker < 1000){
     snakePos.push(nextPosOne)
@@ -176,17 +182,19 @@ const growSnake = (nextPosOne) => {
   }
 }
 
+//stops snake if snake body becomes shorter(ie. head is overlapping body)
 const loseFunc = (storedNum) => {
   const nowPos = [...document.querySelectorAll('.snake')]
   const nowPosNums = nowPos.map(pos=>parseInt(pos.dataset.index))
   const withoutHead = nowPosNums.slice(1)
   if (withoutHead.length < storedNum && squares.some(square => square.classList.contains('food'))){
-    console.log(withoutHead.length, storedNum)
     nowPos.forEach(pos => pos.classList.add('dead-snake'))
     squares.forEach(square => square.classList.remove('snake'))
     shouldMove = false
   }
 }
+
+//moves snake
 
 const moveBody = () => {
   console.log(snakePos)
