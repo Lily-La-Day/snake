@@ -65,7 +65,7 @@ const growSnake = (nextPosOne) => {
 }
 ```
 
-** Winning and Losing **
+**Winning and Losing**
 
 There is no way to win Snake unfortunately, it is a matter of when you lose and with what score!
 
@@ -95,7 +95,7 @@ The lose condition was therefore the snake becoming shorter than it had been pre
 It also meant that I had to have a noticeable delay between food being eaten and new food being created to allow for the snake to grow.
 
 
-** Improvements and Future Additions **
+**Improvements and Future Additions**
 
 I have added a function that is intended to increase the speed as the player's score increases, it does not work however, as a setInterval function's value can not be set in this manner. I would like to correct this.
 
