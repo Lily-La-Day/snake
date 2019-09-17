@@ -25,12 +25,12 @@ The game can be played here: https://lily-la-day.github.io/snake/
 
 ## The process
 
-** The Grid **
+**The Grid**
 
 The snake board was a dynamically generated JavaScript grid. I played around with larger grid areas but decided to keep them small at just 10px on a 500 x 500 grid.
 
 
-** Movement and Growth **
+**Movement and Growth**
 
 The snake himself is an array that gets longer as the game progresses and more food is eaten. He moves as a result of adding/subtracting from the index numbers of his grid position accordingly.
 
